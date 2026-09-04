@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Giỏ hàng — Mini Uniqlo</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+ <header>
+  <div>
+    <a href="index.html"><strong>MINI UNIQLO</strong></a>
+  </div>
+  <div>
+    <a href="products.html">Sản phẩm</a>
+    <a href="orders.html">Đơn hàng</a>
+    <a class="cart-link" href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a>
+    <span id="auth-status"></span>
+  </div>
+</header>
+<div class="promo-banner">
+  <div class="promo-track">
+    <span>🔥 Giảm giá 20% toàn bộ áo thun — chỉ trong tuần này</span>
+    <span>🚚 Miễn phí vận chuyển cho đơn hàng từ 500.000₫</span>
+    <span>🎉 Mua 2 tặng 1 cho danh mục Áo khoác</span>
+    <span>🔥 Giảm giá 20% toàn bộ áo thun — chỉ trong tuần này</span>
+    <span>🚚 Miễn phí vận chuyển cho đơn hàng từ 500.000₫</span>
+    <span>🎉 Mua 2 tặng 1 cho danh mục Áo khoác</span>
+  </div>
+</div>
+  <main>
+    <h1>Giỏ hàng của bạn</h1>
+    <div id="cart-items"></div>
+    <div id="cart-total-row">
+      <span>Tổng cộng:</span>
+      <span id="cart-total">0₫</span>
+    </div>
+    <button id="checkout-btn" onclick="checkout()">Đặt hàng</button>
+  </main>
+
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/ui.js"></script>
+  <script>
+    renderCartPage();
+  </script>
+  <button id="chat-toggle-btn" onclick="toggleChatBox()">💬</button>
+
+<div id="chat-box">
+  <div class="chat-header">
+    Hỗ trợ khách hàng
+    <span onclick="toggleChatBox()" class="chat-close">✕</span>
+  </div>
+  <div id="chat-messages"></div>
+  <form id="chat-form" onsubmit="sendChatMessage(event)">
+    <input type="text" id="chat-input" placeholder="Nhập tin nhắn...">
+    <button type="submit">Gửi</button>
+  </form>
+  <script src="js/chat.js"></script>
+</div>
+<footer>
+  <div class="footer-content">
+    <div class="footer-col">
+      <h4>MINI UNIQLO</h4>
+      <p>Cửa hàng thời trang online — đồ án sinh viên CNTT.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Liên hệ</h4>
+      <p>📍 123 Đường ABC, Quận 1, TP. Hồ Chí Minh</p>
+      <p>📞 0123 456 789</p>
+      <p>✉️ contact@miniuniqlo.vn</p>
+    </div>
+    <div class="footer-col">
+      <h4>Giờ mở cửa</h4>
+      <p>Thứ 2 – Chủ nhật: 9:00 – 21:00</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Mini Uniqlo. Đồ án môn học, không phải trang thương mại thật.
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Áo thun cotton basic",
+    "price": 199000,
+    "category": "ao-thun",
+    "image": "image/pool-party-caitlyn-update-lol-skin-splash-art-hd-wallpaper-uhdpaper.com-279@1@e.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Áo sơ mi linen",
+    "price": 399000,
+    "category": "ao-so-mi",
+    "image": "image/aespa-hot-mess-winter-giselle-ningning-karina-4k-wallpaper-uhdpaper.com-343@0@k.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Quần jean slim fit",
+    "price": 599000,
+    "category": "quan",
+    "image": "image/hinhnenlienminhhuyenthoai4k65e7ec3bf105a4_ad3695db0cd5c65d980b790647bf07e6.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Áo khoác gió",
+    "price": 799000,
+    "category": "ao-khoac",
+    "image": "image/hinhnenlienminhhuyenthoai4k215e7ec3c287994_907c7fe854a86c1fdd578150ec43a507.jpg"
+  }
+]

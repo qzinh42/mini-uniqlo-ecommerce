@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Đăng nhập — Mini Uniqlo</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+  <div>
+    <a href="index.html"><strong>MINI UNIQLO</strong></a>
+  </div>
+  <div>
+    <a href="products.html">Sản phẩm</a>
+    <a href="orders.html">Đơn hàng</a>
+    <a class="cart-link" href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a>
+    <span id="auth-status"></span>
+  </div>
+</header>
+<div class="promo-banner">
+  <div class="promo-track">
+    <span>🔥 Giảm giá 20% toàn bộ áo thun — chỉ trong tuần này</span>
+    <span>🚚 Miễn phí vận chuyển cho đơn hàng từ 500.000₫</span>
+    <span>🎉 Mua 2 tặng 1 cho danh mục Áo khoác</span>
+    <span>🔥 Giảm giá 20% toàn bộ áo thun — chỉ trong tuần này</span>
+    <span>🚚 Miễn phí vận chuyển cho đơn hàng từ 500.000₫</span>
+    <span>🎉 Mua 2 tặng 1 cho danh mục Áo khoác</span>
+  </div>
+</div>
+  <main>
+    <h1>Đăng nhập</h1>
+    <form onsubmit="loginUser(event)" style="max-width:300px;">
+      <input type="text" id="login-username" placeholder="Tên đăng nhập" style="width:100%;padding:8px;margin-bottom:10px;">
+      <input type="password" id="login-password" placeholder="Mật khẩu" style="width:100%;padding:8px;margin-bottom:10px;">
+      <button type="submit">Đăng nhập</button>
+    </form>
+    <p>Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+  </main>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+<button id="chat-toggle-btn" onclick="toggleChatBox()">💬</button>
+
+<div id="chat-box">
+  <div class="chat-header">
+    Hỗ trợ khách hàng
+    <span onclick="toggleChatBox()" class="chat-close">✕</span>
+  </div>
+  <div id="chat-messages"></div>
+  <form id="chat-form" onsubmit="sendChatMessage(event)">
+    <input type="text" id="chat-input" placeholder="Nhập tin nhắn...">
+    <button type="submit">Gửi</button>
+  </form>
+  <script src="js/chat.js"></script>
+</div>
+</html>

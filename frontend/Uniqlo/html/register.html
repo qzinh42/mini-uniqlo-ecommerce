@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Đăng nhập — Mini Uniqlo</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+  <div>
+    <a href="index.html"><strong>MINI UNIQLO</strong></a>
+  </div>
+  <div>
+    <a href="products.html">Sản phẩm</a>
+    <a href="orders.html">Đơn hàng</a>
+    <a class="cart-link" href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a>
+    <span id="auth-status"></span>
+  </div>
+</header>
+  <main>
+    <h1>Đăng nhập</h1>
+    <form onsubmit="registerUser(event)" style="max-width:300px;">
+      <input type="text" id="reg-username" placeholder="Tên đăng nhập" style="width:100%;padding:8px;margin-bottom:10px;">
+      <input type="password" id="reg-password" placeholder="Mật khẩu" style="width:100%;padding:8px;margin-bottom:10px;">
+      <button type="submit">Đăng nhập</button>
+    </form>
+    <a href="login.html"></a> <a href="register.html">Đăng ký</a></p>
+  </main>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
