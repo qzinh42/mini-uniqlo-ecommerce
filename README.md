@@ -17,4 +17,4 @@ Trang web thương mại điện tử mini lấy cảm hứng từ Uniqlo, xây 
 
 ## Cách chạy dự án
 1. Backend: mở folder `backend/` bằng IDE hỗ trợ Maven, cấu hình `application.properties` với thông tin SQL Server của bạn, chạy `mvnw spring-boot:run`.
-2. Frontend: mở folder `frontend/` bằng VSCode + extension Live Server, mở `index.html`.
+2. Frontend: mở folder `frontend/` bằng VSCode + extension Live Server, mở `index.html`."# mini-uniqlo-ecommerce" 
