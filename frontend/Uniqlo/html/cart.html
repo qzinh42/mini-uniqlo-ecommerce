@@ -13,6 +13,7 @@
   <div>
     <a href="products.html">Sản phẩm</a>
     <a href="orders.html">Đơn hàng</a>
+    <a href="favorites.html">Yêu thích</a>
     <a class="cart-link" href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a>
     <span id="auth-status"></span>
   </div>
@@ -34,7 +35,13 @@
       <span>Tổng cộng:</span>
       <span id="cart-total">0₫</span>
     </div>
-    <button id="checkout-btn" onclick="checkout()">Đặt hàng</button>
+    <div id="payment-methods">
+  <h3>Phương thức thanh toán</h3>
+  <label><input type="radio" name="payment-method" value="COD" checked> Thanh toán khi nhận hàng (COD)</label>
+  <label><input type="radio" name="payment-method" value="BANK"> Chuyển khoản ngân hàng (giả lập)</label>
+  <label><input type="radio" name="payment-method" value="MOMO"> Ví MoMo (giả lập)</label>
+</div>
+<button id="checkout-btn" onclick="checkout()">Đặt hàng</button>
   </main>
 
 <script src="js/data.js"></script>

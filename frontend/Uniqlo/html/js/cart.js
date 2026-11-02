@@ -1,4 +1,4 @@
-// cart.js — giờ mọi thao tác đều gọi API, không tự tính toán ở phía trình duyệt nữa
+// cart.js — mọi thao tác giỏ hàng, đặt hàng, yêu thích đều gọi API
 
 const CART_API = "http://localhost:8081/api/cart";
 const ORDER_API = "http://localhost:8081/api/orders";
@@ -50,12 +50,16 @@ async function calculateTotal() {
 }
 
 async function checkout() {
+  // Lấy phương thức thanh toán đang chọn; nếu trang chưa có lựa chọn thì mặc định COD
+  const selected = document.querySelector('input[name="payment-method"]:checked');
+  const method = selected ? selected.value : "COD";
+
   const confirmed = confirm("Xác nhận đặt hàng?");
   if (!confirmed) return;
 
   try {
     const res = await fetch(
-      `${ORDER_API}/checkout?cartId=${getCartId()}`,
+      `${ORDER_API}/checkout?cartId=${getCartId()}&method=${method}`,
       { method: "POST" }
     );
 
@@ -65,8 +69,13 @@ async function checkout() {
     }
 
     const order = await res.json();
-    alert(`Đặt hàng thành công! Mã đơn hàng: #${order.id}`);
-    window.location.href = "index.html";
+
+    if (method === "COD") {
+      alert(`Đặt hàng thành công! Mã đơn hàng: #${order.id}. Bạn thanh toán khi nhận hàng.`);
+      window.location.href = "orders.html";
+    } else {
+      window.location.href = `payment.html?orderId=${order.id}`;
+    }
   } catch (err) {
     alert("Không kết nối được server, vui lòng kiểm tra lại.");
     console.error(err);

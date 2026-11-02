@@ -1,5 +1,20 @@
 // ui.js — chỉ lo việc render ra DOM, không chứa logic tính toán giỏ hàng
-// (logic đó nằm ở cart.js) để 2 file không giẫm chân nhau.
+
+const STATUS_LABELS = {
+  PENDING: "Chờ thanh toán",
+  PAID: "Đã thanh toán",
+  FAILED: "Thanh toán thất bại",
+};
+const PAY_METHODS = { COD: "COD", BANK: "Chuyển khoản", MOMO: "MoMo" };
+
+// Đơn COD đang PENDING nghĩa là "trả tiền khi nhận hàng", không phải khách quên thanh toán
+function getStatusInfo(order) {
+  const status = order.paymentStatus || "PAID";
+  if (order.paymentMethod === "COD" && status === "PENDING") {
+    return { label: "Thanh toán khi nhận hàng", css: "COD" };
+  }
+  return { label: STATUS_LABELS[status] || status, css: status };
+}
 
 function formatVND(amount) {
   return amount.toLocaleString("vi-VN") + "₫";
@@ -12,6 +27,32 @@ async function updateCartBadge() {
   if (badge) badge.textContent = count;
 }
 
+// ===== Banner sản phẩm nổi bật (trang chủ) =====
+async function renderHeroBanner() {
+  const hero = document.getElementById("hero-banner");
+  if (!hero) return;
+
+  const products = await fetchProducts();
+  if (products.length === 0) return;
+
+  const featured = products.reduce((max, p) => (p.price > max.price ? p : max), products[0]);
+
+  hero.href = `product.html?id=${featured.id}`;
+  hero.style.backgroundImage = `url('${featured.image}')`;
+  hero.innerHTML = `
+    <div class="hero-content">
+      <span class="hero-badge">HÀNG MỚI VỀ</span>
+      <h2 class="hero-title">${featured.name}</h2>
+      <p class="hero-desc">Khám phá ngay sản phẩm nổi bật tại Mini Uniqlo</p>
+      <p class="hero-price">${formatVND(featured.price)}</p>
+    </div>
+  `;
+}
+
+// ===== Danh sách sản phẩm: lọc category + tìm kiếm =====
+let currentCategory = "all";
+let currentSearchTerm = "";
+
 async function renderProductList() {
   const container = document.getElementById("product-list");
   if (!container) return;
@@ -19,10 +60,6 @@ async function renderProductList() {
   currentSearchTerm = "";
   await renderFilteredProducts();
 }
-
-// Lưu trạng thái lọc hiện tại, để search và category không "đá" mất lựa chọn của nhau
-let currentCategory = "all";
-let currentSearchTerm = "";
 
 async function filterByCategory(category) {
   currentCategory = category;
@@ -85,6 +122,7 @@ async function handleFavoriteClick(event, productId) {
   event.target.classList.toggle("liked", liked);
 }
 
+// ===== Chi tiết sản phẩm =====
 async function renderProductDetail() {
   const container = document.getElementById("product-detail");
   if (!container) return;
@@ -114,6 +152,7 @@ async function renderProductDetail() {
   `;
 }
 
+// ===== Giỏ hàng =====
 async function renderCartPage() {
   const container = document.getElementById("cart-items");
   const totalEl = document.getElementById("cart-total");
@@ -154,6 +193,7 @@ async function renderCartPage() {
   if (totalEl) totalEl.textContent = formatVND(total);
 }
 
+// ===== Đơn hàng (có nhãn trạng thái thanh toán) =====
 async function renderOrdersPage() {
   const container = document.getElementById("orders-list");
   if (!container) return;
@@ -170,7 +210,7 @@ async function renderOrdersPage() {
 
   const blocks = await Promise.all(
     orders.map(async (order) => {
-      const itemsRes = await fetch(`http://localhost:8081/api/orders/${order.id}/items`);
+      const itemsRes = await fetch(`${ORDER_API}/${order.id}/items`);
       const items = await itemsRes.json();
 
       const itemsHtml = items
@@ -182,11 +222,14 @@ async function renderOrdersPage() {
         .join("");
 
       const createdDate = new Date(order.createdAt).toLocaleString("vi-VN");
+      const method = PAY_METHODS[order.paymentMethod] || order.paymentMethod || "COD";
+      const info = getStatusInfo(order);
 
       return `
         <div class="order-card">
           <h3>Đơn hàng #${order.id}</h3>
-          <p class="order-date">${createdDate}</p>
+          <span class="status-badge status-${info.css}">${info.label}</span>
+          <p class="order-date">${createdDate} · ${method}</p>
           <ul>${itemsHtml}</ul>
           <p class="order-total">Tổng: ${formatVND(order.totalAmount)}</p>
         </div>
@@ -197,6 +240,7 @@ async function renderOrdersPage() {
   container.innerHTML = blocks.join("");
 }
 
+// ===== Sản phẩm yêu thích =====
 async function renderFavoritesPage() {
   const container = document.getElementById("product-list");
   if (!container) return;
@@ -232,5 +276,5 @@ async function renderFavoritesPage() {
     .join("");
 }
 
-// Badge giỏ hàng cần cập nhật ở MỌI trang, nên gắn ở đây
+// Badge giỏ hàng cần cập nhật ở MỌI trang
 document.addEventListener("DOMContentLoaded", updateCartBadge);

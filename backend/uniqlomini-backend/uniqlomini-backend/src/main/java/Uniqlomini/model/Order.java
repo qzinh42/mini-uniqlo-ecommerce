@@ -23,4 +23,10 @@ public class Order {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "payment_method")
+    private String paymentMethod;
+
+    @Column(name = "payment_status")
+    private String paymentStatus;
 }

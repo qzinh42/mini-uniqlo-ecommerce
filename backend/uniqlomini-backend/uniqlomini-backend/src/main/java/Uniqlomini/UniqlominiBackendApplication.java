@@ -10,4 +10,5 @@ public class UniqlominiBackendApplication {
 		SpringApplication.run(UniqlominiBackendApplication.class, args);
 	}
  //.\mvnw.cmd spring-boot:run - mã run backend
+ // https://github.com/qzinh42/mini-uniqlo-ecommerce - Link đưa vào CV
 }
